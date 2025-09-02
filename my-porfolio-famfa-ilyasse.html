@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+
+    <title>ILYASSE FAMFA | Cybersecurity Specialist</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary-color: #00ff41;
+            --secondary-color: #0080ff;
+            --accent-color: #ff0080;
+            --bg-color: #0a0a0a;
+            --dark-bg: #121212;
+            --text-color: #e0e0e0;
+            --muted-color: #808080;
+            --border-color: #333;
+        }
+        
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            background: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* Matrix Rain Background */
+        .matrix-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.1;
+        }
+        
+        /* Terminal Window */
+        .terminal-window {
+            background: var(--dark-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            margin: 20px;
+            box-shadow: 0 0 30px rgba(0, 255, 65, 0.1);
+        }
+        
+        .terminal-header {
+            background: linear-gradient(90deg, #333, #222);
+            padding: 10px 15px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            border-radius: 8px 8px 0 0;
+        }
+        
+        .terminal-buttons {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .terminal-button {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        
+        .close { background: #ff5f56; }
+        .minimize { background: #ffbd2e; }
+        .maximize { background: #27ca3f; }
+        
+        .terminal-title {
+            margin-left: 15px;
+            color: var(--muted-color);
+            font-size: 12px;
+        }
+        
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            background: rgba(18, 18, 18, 0.95);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--border-color);
+            border-radius: 50px;
+            padding: 15px 30px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+        
+        .nav.hidden {
+            transform: translateX(-50%) translateY(-100px);
+            opacity: 0;
+        }
+        
+        .nav ul {
+            list-style: none;
+            display: flex;
+            gap: 5px;
+            margin: 0;
+        }
+        
+        .nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 13px;
+            padding: 10px 16px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            position: relative;
+            font-weight: 500;
+        }
+        
+        .nav a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            border-radius: 25px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+        
+        .nav a:hover::before {
+            opacity: 1;
+        }
+        
+        .nav a:hover {
+            color: var(--bg-color);
+            transform: translateY(-2px);
+        }
+        
+        .nav a.active {
+            color: var(--bg-color);
+        }
+        
+        .nav a.active::before {
+            opacity: 1;
+        }
+        
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            padding: 40px;
+        }
+        
+        .glitch {
+            font-size: 3.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            position: relative;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+        
+        .glitch::before,
+        .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .glitch::before {
+            animation: glitch-1 2s infinite;
+            color: var(--accent-color);
+            z-index: -1;
+        }
+        
+        .glitch::after {
+            animation: glitch-2 2s infinite;
+            color: var(--secondary-color);
+            z-index: -2;
+        }
+        
+        @keyframes glitch-1 {
+            0%, 14%, 15%, 49%, 50%, 99%, 100% { transform: translate(0); }
+            15%, 49% { transform: translate(-2px, -1px); }
+        }
+        
+        @keyframes glitch-2 {
+            0%, 20%, 21%, 62%, 63%, 99%, 100% { transform: translate(0); }
+            21%, 62% { transform: translate(2px, 1px); }
+        }
+        
+        .typing-effect {
+            font-size: 1.2rem;
+            color: var(--secondary-color);
+            margin-bottom: 30px;
+            min-height: 30px;
+        }
+        
+        .cursor {
+            animation: blink 1s infinite;
+        }
+        
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            background: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            text-decoration: none;
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--primary-color);
+            transition: left 0.3s;
+            z-index: -1;
+        }
+        
+        .btn:hover::before {
+            left: 0;
+        }
+        
+        .btn:hover {
+            color: var(--bg-color);
+        }
+        
+        .btn.secondary {
+            border-color: var(--secondary-color);
+            color: var(--secondary-color);
+        }
+        
+        .btn.secondary::before {
+            background: var(--secondary-color);
+        }
+        
+        /* Sections */
+        .section {
+            padding: 60px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 60px;
+            height: 2px;
+            background: var(--accent-color);
+        }
+        
+        /* About Section */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 40px;
+            align-items: start;
+        }
+        
+        .profile-card {
+            background: var(--dark-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .profile-pic {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--bg-color);
+            overflow: hidden;
+            border: 3px solid #63E6BE;  
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.3);
+        }
+        
+        .profile-pic img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+        
+        .contact-info {
+            margin-top: 20px;
+            text-align: left;
+        }
+        
+        .contact-info div {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .contact-info span {
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+        
+        /* Skills Grid */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .skill-category {
+            background: var(--dark-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 25px;
+        }
+        
+        .skill-category h3 {
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+        
+        .skill-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            padding: 8px 0;
+        }
+        
+        .skill-bar {
+            width: 60%;
+            height: 4px;
+            background: var(--border-color);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+        
+        .skill-progress {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            border-radius: 2px;
+            animation: skill-load 2s ease-in-out;
+        }
+        
+        @keyframes skill-load {
+            from { width: 0; }
+        }
+        
+        /* Experience Timeline */
+        .timeline {
+            position: relative;
+            margin-top: 30px;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 30px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--primary-color);
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 40px;
+            padding-left: 70px;
+        }
+        
+        .timeline-dot {
+            position: absolute;
+            left: 21px;
+            top: 0;
+            width: 18px;
+            height: 18px;
+            background: var(--accent-color);
+            border-radius: 50%;
+            border: 3px solid var(--bg-color);
+        }
+        
+        .timeline-content {
+            background: var(--dark-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 25px;
+        }
+        
+        .timeline-date {
+            color: var(--primary-color);
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+        
+        .timeline-title {
+            color: var(--secondary-color);
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+        
+        .timeline-company {
+            color: var(--accent-color);
+            font-weight: 500;
+            margin-bottom: 15px;
+        }
+        
+        /* Projects Grid */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .project-card {
+            background: var(--dark-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 25px;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-color);
+            box-shadow: 0 10px 30px rgba(0, 255, 65, 0.1);
+        }
+        
+        .project-title {
+            color: var(--secondary-color);
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+        }
+        
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 15px;
+        }
+        
+        .tech-tag {
+            background: var(--border-color);
+            color: var(--text-color);
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+        }
+        
+        /* Languages */
+        .languages {
+            display: flex;
+            gap: 30px;
+            margin-top: 20px;
+        }
+        
+        .language {
+            text-align: center;
+        }
+        
+        .language-level {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 3px solid var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 10px;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .glitch {
+                font-size: 2.5rem;
+            }
+            
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav {
+                position: fixed;
+                left: 50%;
+                transform: translateX(-50%);
+                top: 10px;
+                margin: 0;
+                padding: 12px 20px;
+            }
+            
+            .nav.hidden {
+                transform: translateX(-50%) translateY(-100px);
+            }
+            
+            .nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 3px;
+            }
+            
+            .nav a {
+                font-size: 12px;
+                padding: 8px 12px;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .languages {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+        }
+        
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: var(--bg-color);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-color);
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--secondary-color);
+        }
+    </style>
+</head>
+<body>
+    <canvas class="matrix-bg" id="matrix"></canvas>
+    
+    <nav class="nav">
+        <ul>
+            <li><a href="#home">~/home</a></li>
+            <li><a href="#about">~/about</a></li>
+            <li><a href="#skills">~/skills</a></li>
+            <li><a href="#experience">~/experience</a></li>
+            <li><a href="#projects">~/projects</a></li>
+            <li><a href="#contact">~/contact</a></li>
+        </ul>
+    </nav>
+
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1 class="glitch" data-text="ILYASSE FAMFA">ILYASSE FAMFA</h1>
+            <div class="typing-effect" id="typing-text">
+                <span class="cursor">|</span>
+            </div>
+            <div class="cta-buttons">
+                <a href="#about" class="btn">./explore_profile.sh</a>
+                <a href="#contact" class="btn secondary">cat contact.txt</a>
+            </div>
+        </div>
+    </section>
+
+    <div class="terminal-window">
+        <div class="terminal-header">
+            <div class="terminal-buttons">
+                <div class="terminal-button close"></div>
+                <div class="terminal-button minimize"></div>
+                <div class="terminal-button maximize"></div>
+            </div>
+            <div class="terminal-title">ilyasse@cybersec:~$ whoami</div>
+        </div>
+
+        <section id="about" class="section">
+            <h2 class="section-title">$ cat profile.md</h2>
+            <div class="about-grid">
+                <div class="profile-card">
+                    <div class="profile-pic">
+                        <img src="img.jpeg" alt="Ilyasse Famfa" onerror="this.style.display='none'; this.parentNode.innerHTML='IF';">
+                    </div>
+                    <h3>Ilyasse Famfa</h3>
+                    <p>Junior Cybersecurity Specialist</p>
+                    <div class="contact-info">
+                        <div><i class="fa-solid fa-location-dot" style="color: #63E6BE;"></i> Indianapolis</div>
+                        <div><i class="fa-solid fa-envelope" style="color: #63E6BE;"></i> Ilyassefamfa14@gmail.com</div>
+                        <div><i class="fa-solid fa-phone" style="color: #63E6BE;"></i> +1 (463) 314-9433</div>
+                    </div>
+                </div>
+                <div>
+                    <p>Engineer in Cryptology and Computer Security, passionate about data protection and securing information systems. With solid training in modern cryptography, network and application security, I have acquired extensive experience in analyzing and implementing robust security solutions.</p>
+                    
+                    <h3 style="color: var(--secondary-color); margin-top: 30px; margin-bottom: 15px;">Education</h3>
+                    <div style="margin-bottom: 15px;">
+                        <strong style="color: var(--primary-color);">Master's Degree in Cryptology and Cybersecurity (MST)</strong><br>
+                        <span style="color: var(--muted-color);">2023 - 2025 | Faculty of Science and Technology, AL HOCEIMA</span>
+                    </div>
+                    <div style="margin-bottom: 15px;">
+                        <strong style="color: var(--primary-color);">Bachelor's Degree in Computer Engineering (LST)</strong><br>
+                        <span style="color: var(--muted-color);">2020 - 2023 | Faculty of Science and Technology, SETTAT</span>
+                    </div>
+                    <div>
+                        <strong style="color: var(--primary-color);">Baccalaureate in Electrical Science and Technology</strong><br>
+                        <span style="color: var(--muted-color);">2019 - 2020 | Mohammed VI High School, MARRAKECH</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills" class="section">
+            <h2 class="section-title">$ ls -la /skills/</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3>Programming & Development</h3>
+                    <div class="skill-item">
+                        <span>Python</span>
+                        <div class="skill-bar"><div class="skill-progress" style="width: 90%"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <span>C++</span>
+                        <div class="skill-bar"><div class="skill-progress" style="width: 75%"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <span>SQL/PL-SQL</span>
+                        <div class="skill-bar"><div class="skill-progress" style="width: 85%"></div></div>
+                    </div>
+                </div>
+                
+                <div class="skill-category">
+                    <h3>Security Tools</h3>
+                    <div class="skill-item">
+                        <span>Nmap</span>
+                        <div class="skill-bar"><div class="skill-progress" style="width: 90%"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <span>Nessus</span>
+                        <div class="skill-bar"><div class="skill-progress" style="width: 80%"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <span>OWASP ZAP</span>
+                        <div class="skill-bar"><div class="skill-progress" style="width: 85%"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <span>Wireshark</span>
+                        <div class="skill-bar"><div class="skill-progress" style="width: 80%"></div></div>
+                    </div>
+                </div>
+                
+                <div class="skill-category">
+                    <h3>Cryptography & Security</h3>
+                    <div class="skill-item">
+                        <span>AES Encryption</span>
+                        <div class="skill-bar"><div class="skill-progress" style="width: 90%"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <span>RSA</span>
+                        <div class="skill-bar"><div class="skill-progress" style="width: 85%"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <span>JWT/OAuth2</span>
+                        <div class="skill-bar"><div class="skill-progress" style="width: 80%"></div></div>
+                    </div>
+                </div>
+                
+                <div class="skill-category">
+                    <h3>Systems & Platforms</h3>
+                    <div class="skill-item">
+                        <span>Linux</span>
+                        <div class="skill-bar"><div class="skill-progress" style="width: 90%"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <span>Windows</span>
+                        <div class="skill-bar"><div class="skill-progress" style="width: 75%"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <span>VMware/VirtualBox</span>
+                        <div class="skill-bar"><div class="skill-progress" style="width: 85%"></div></div>
+                    </div>
+                </div>
+            </div>
+            
+            <h3 style="color: var(--secondary-color); margin-top: 40px; margin-bottom: 20px;">Languages</h3>
+            <div class="languages">
+                <div class="language">
+                    <div class="language-level">100%</div>
+                    <span>Arabic (Native)</span>
+                </div>
+                <div class="language">
+                    <div class="language-level">90%</div>
+                    <span>English (Advanced)</span>
+                </div>
+                <div class="language">
+                    <div class="language-level">85%</div>
+                    <span>French (Advanced)</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="experience" class="section">
+            <h2 class="section-title">$ grep -r "experience" /career/</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">Feb 2025 - Aug 2025</div>
+                        <div class="timeline-title">Final Year Internship</div>
+                        <div class="timeline-company">EURAFRIC INFORMATION</div>
+                        <p>Developed a final year project on LLM security, creating an automated penetration testing tool based on OWASP Top 10 for LLMs (2025). Built a RAG assistant for CVEs, integrating local models (LLaMA 3, DeepSeek) and automated report generation (JSON/PDF).</p>
+                        <p><strong>SOC Activities:</strong> Incident investigation using IBM QRadar (SIEM) and TheHive. Penetration testing within an NDR Gatewatcher POC to validate detection and response to alerts.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">Current</div>
+                        <div class="timeline-title">Internship</div>
+                        <div class="timeline-company">INTERNCAREER</div>
+                        <p>Identification of potential threats and vulnerabilities. Vulnerability scanning using cybersecurity tools (Nmap, Nessus). Design of realistic cybersecurity incident scenarios (malware attack, phishing attempt).</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" class="section">
+            <h2 class="section-title">$ find /projects -name "*.py" -exec cat {} \;</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-title">Web Application Security Testing</div>
+                    <p>Conducted security tests using OWASP ZAP on OWASP Juice Shop and developed Python scripts to simulate attacks (SQL Injection, XSS). Analyzed detected vulnerabilities and proposed corrective measures.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">OWASP ZAP</span>
+                        <span class="tech-tag">SQL Injection</span>
+                        <span class="tech-tag">XSS</span>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-title">Secure Database Backup System</div>
+                    <p>Automated regular MySQL database backups with AES and GPG encryption. Developed a PyQt-based graphical interface for managing backups and restorations with enhanced security features.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">PyQt</span>
+                        <span class="tech-tag">MySQL</span>
+                        <span class="tech-tag">AES</span>
+                        <span class="tech-tag">GPG</span>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-title">Network Supervision with Nagios</div>
+                    <p>Used Nagios to monitor and supervise network infrastructure. Configured performance, availability, and health monitoring for network devices and services with real-time alerting.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Nagios</span>
+                        <span class="tech-tag">Network Monitoring</span>
+                        <span class="tech-tag">Linux</span>
+                        <span class="tech-tag">SNMP</span>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-title">LLM Security & CVE RAG Assistant</div>
+                    <p>Created an automated penetration testing tool based on OWASP Top 10 for LLMs. Built a RAG assistant for CVEs with local LLaMA 3 and DeepSeek models integration.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">LLaMA 3</span>
+                        <span class="tech-tag">RAG</span>
+                        <span class="tech-tag">OWASP</span>
+                        <span class="tech-tag">DeepSeek</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="section">
+            <h2 class="section-title">$ echo "Get in touch"</h2>
+            <div style="text-align: center; max-width: 600px; margin: 0 auto;">
+                <p style="margin-bottom: 30px; font-size: 1.1rem;">Ready to secure your digital assets? Let's connect and discuss how we can fortify your cybersecurity infrastructure.</p>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; margin-top: 40px;">
+                    <div class="project-card" style="text-align: center;">
+                        <h3 style="color: var(--primary-color); margin-bottom: 15px;">📧 Email</h3>
+                        <p>Ilyassefamfa14@gmail.com</p>
+                    </div>
+                    <div class="project-card" style="text-align: center;">
+                        <h3 style="color: var(--secondary-color); margin-bottom: 15px;">📱 Phone</h3>
+                        <p>+1 (463) 314-9433</p>
+                    </div>
+                    <div class="project-card" style="text-align: center;">
+                        <h3 style="color: var(--accent-color); margin-bottom: 15px;">📍 Location</h3>
+                        <p>Indianapolis, IN</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Matrix Rain Effect
+        const canvas = document.getElementById('matrix');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const letters = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
+        const fontSize = 14;
+        const columns = canvas.width / fontSize;
+        const drops = [];
+
+        for (let x = 0; x < columns; x++) {
+            drops[x] = 1;
+        }
+
+        function drawMatrix() {
+            ctx.fillStyle = 'rgba(10, 10, 10, 0.04)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = '#00ff41';
+            ctx.font = fontSize + 'px monospace';
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = letters[Math.floor(Math.random() * letters.length)];
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+
+        setInterval(drawMatrix, 35);
+
+        // Typing Effect
+        const typeText = "Junior Cybersecurity Specialist | Penetration Tester | SOC Analyst";
+        let i = 0;
+        const typingElement = document.getElementById('typing-text');
+        
+        function typeWriter() {
+            if (i < typeText.length) {
+                typingElement.innerHTML = typeText.slice(0, i + 1) + '<span class="cursor">|</span>';
+                i++;
+                setTimeout(typeWriter, 100);
+            } else {
+                setTimeout(() => {
+                    i = 0;
+                    typeWriter();
+                }, 3000);
+            }
+        }
+
+        // Start typing effect after page load
+        window.addEventListener('load', () => {
+            setTimeout(typeWriter, 1000);
+        });
+
+        // Navigation scroll behavior
+        let lastScrollTop = 0;
+        const nav = document.querySelector('.nav');
+        
+        function handleNavScroll() {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            if (scrollTop > lastScrollTop && scrollTop > 100) {
+                // Scrolling down
+                nav.classList.add('hidden');
+            } else {
+                // Scrolling up
+                nav.classList.remove('hidden');
+            }
+            
+            lastScrollTop = scrollTop;
+        }
+
+        // Active navigation highlighting
+        function updateActiveNav() {
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.nav a');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (window.scrollY >= (sectionTop - 200)) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('.nav a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections for animation
+        document.querySelectorAll('.section').forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(30px)';
+            section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(section);
+        });
+
+        // Observe skill progress bars for animation
+        document.querySelectorAll('.skill-progress').forEach(bar => {
+            const width = bar.style.width;
+            bar.style.width = '0';
+            
+            const skillObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        setTimeout(() => {
+                            entry.target.style.width = width;
+                        }, 300);
+                    }
+                });
+            }, observerOptions);
+            
+            skillObserver.observe(bar);
+        });
+
+        // Add scroll event listeners
+        window.addEventListener('scroll', () => {
+            handleNavScroll();
+            updateActiveNav();
+        });
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        // Add glitch effect on hero text hover
+        document.querySelector('.glitch').addEventListener('mouseenter', function() {
+            this.style.animation = 'none';
+            setTimeout(() => {
+                this.style.animation = '';
+            }, 10);
+        });
+
+        // Terminal command simulation
+        document.querySelectorAll('.btn').forEach(button => {
+            button.addEventListener('click', function(e) {
+                if (this.textContent.includes('./explore_profile.sh')) {
+                    // Add terminal loading effect
+                    const originalText = this.textContent;
+                    this.textContent = 'executing...';
+                    setTimeout(() => {
+                        this.textContent = originalText;
+                    }, 1000);
+                }
+            });
+        });
+
+        console.log(`
+    ╔══════════════════════════════════════╗
+    ║  Welcome to Ilyasse Famfa's Portfolio ║
+    ║  Cybersecurity Specialist            ║
+    ║  System Status: SECURE               ║
+    ╚══════════════════════════════════════╝
+    
+    > Initializing security protocols...
+    > Loading encryption modules...
+    > Portfolio ready for exploration!
+        `);
+    </script>
+</body>
+</html>
