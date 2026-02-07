@@ -358,110 +358,314 @@
             font-weight: 500;
         }
         
-        /* Skills Grid */
+        /* Clean Minimal Skills Grid */
         .skills-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            margin-top: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
         }
         
         .skill-category {
             background: var(--dark-bg);
             border: 1px solid var(--border-color);
             border-radius: 8px;
-            padding: 25px;
+            padding: 30px;
+            transition: all 0.3s ease;
+        }
+        
+        .skill-category:hover {
+            border-color: rgba(128, 128, 128, 0.4);
         }
         
         .skill-category h3 {
-            color: var(--secondary-color);
-            margin-bottom: 15px;
+            color: var(--text-color);
+            margin-bottom: 20px;
             font-size: 1.1rem;
-        }
-        
-        .skill-item {
+            font-weight: 600;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            margin-bottom: 10px;
-            padding: 8px 0;
+            gap: 10px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border-color);
         }
         
-        .skill-bar {
-            width: 60%;
-            height: 4px;
-            background: var(--border-color);
-            border-radius: 2px;
-            overflow: hidden;
+        .skill-category h3 i {
+            font-size: 1rem;
+            color: var(--primary-color);
         }
         
-        .skill-progress {
-            height: 100%;
-            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
-            border-radius: 2px;
-            animation: skill-load 2s ease-in-out;
+        .skills-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
         }
         
-        @keyframes skill-load {
+        /* Uniform Skill Badge - All Skills Look the Same */
+        .skill-badge {
+            background: rgba(255, 255, 255, 0.03);
+            color: var(--text-color);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 400;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.25s ease;
+            cursor: default;
+        }
+        
+        .skill-badge:hover {
+            transform: translateY(-2px);
+            border-color: rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        /* Skills subtitle */
+        .skills-subtitle {
+            text-align: center;
+            color: var(--muted-color);
+            font-size: 1rem;
+            margin-top: 10px;
+            margin-bottom: 20px;
+        }
+        
+        /* @keyframes skill-load {
             from { width: 0; }
-        }
+        } */
         
-        /* Experience Timeline */
-        .timeline {
+        /* Professional Experience Timeline */
+        .timeline-container {
             position: relative;
-            margin-top: 30px;
+            margin-top: 50px;
+            padding: 20px 0;
         }
         
-        .timeline::before {
-            content: '';
+        .timeline-line {
             position: absolute;
-            left: 30px;
+            left: 50%;
+            transform: translateX(-50%);
             top: 0;
             bottom: 0;
-            width: 2px;
-            background: var(--primary-color);
+            width: 3px;
+            background: linear-gradient(180deg, 
+                transparent, 
+                var(--primary-color) 10%, 
+                var(--primary-color) 90%, 
+                transparent
+            );
         }
         
         .timeline-item {
             position: relative;
-            margin-bottom: 40px;
-            padding-left: 70px;
+            margin-bottom: 60px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .timeline-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .timeline-item.left {
+            flex-direction: row;
+        }
+        
+        .timeline-item.right {
+            flex-direction: row-reverse;
         }
         
         .timeline-dot {
             position: absolute;
-            left: 21px;
-            top: 0;
-            width: 18px;
-            height: 18px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 20px;
             background: var(--accent-color);
             border-radius: 50%;
-            border: 3px solid var(--bg-color);
+            border: 4px solid var(--bg-color);
+            box-shadow: 0 0 0 3px var(--border-color),
+                        0 0 20px rgba(255, 0, 128, 0.4);
+            z-index: 10;
+            animation: pulse-dot 2s infinite;
+        }
+        
+        @keyframes pulse-dot {
+            0%, 100% {
+                box-shadow: 0 0 0 3px var(--border-color),
+                            0 0 20px rgba(255, 0, 128, 0.4);
+            }
+            50% {
+                box-shadow: 0 0 0 3px var(--border-color),
+                            0 0 30px rgba(255, 0, 128, 0.6);
+            }
         }
         
         .timeline-content {
+            width: calc(50% - 50px);
             background: var(--dark-bg);
             border: 1px solid var(--border-color);
             border-radius: 8px;
-            padding: 25px;
+            padding: 30px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .timeline-content:hover {
+            border-color: var(--primary-color);
+            box-shadow: 0 10px 40px rgba(0, 255, 65, 0.15);
+            transform: translateY(-5px);
+        }
+        
+        .timeline-item.left .timeline-content {
+            margin-right: 50px;
+        }
+        
+        .timeline-item.right .timeline-content {
+            margin-left: 50px;
+        }
+        
+        .timeline-header {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .timeline-date-location {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+            gap: 10px;
         }
         
         .timeline-date {
+            display: flex;
+            align-items: center;
+            gap: 8px;
             color: var(--primary-color);
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        
+        .timeline-date i {
             font-size: 0.9rem;
-            margin-bottom: 10px;
+        }
+        
+        .timeline-location {
+            color: var(--muted-color);
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .timeline-location i {
+            font-size: 0.85rem;
         }
         
         .timeline-title {
             color: var(--secondary-color);
-            font-size: 1.1rem;
-            margin-bottom: 10px;
+            font-size: 1.3rem;
+            margin-bottom: 8px;
+            font-weight: 600;
         }
         
         .timeline-company {
             color: var(--accent-color);
-            font-weight: 500;
+            font-weight: 600;
+            font-size: 1.05rem;
             margin-bottom: 15px;
+        }
+        
+        .timeline-description {
+            color: var(--text-color);
+            line-height: 1.7;
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+        }
+        
+        .timeline-responsibilities {
+            margin: 20px 0;
+        }
+        
+        .timeline-responsibilities ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .timeline-responsibilities li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 10px;
+            color: var(--text-color);
+            line-height: 1.6;
+            font-size: 0.9rem;
+        }
+        
+        .timeline-responsibilities li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+        
+        .timeline-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 15px;
+        }
+        
+        .timeline-tag {
+            background: var(--border-color);
+            color: var(--text-color);
+            padding: 5px 12px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+        
+        .timeline-tag:hover {
+            background: var(--primary-color);
+            color: var(--bg-color);
+            border-color: var(--primary-color);
+        }
+        
+        /* Section header styling */
+        .experience-subtitle {
+            text-align: center;
+            color: var(--muted-color);
+            font-size: 1rem;
+            margin-top: 10px;
+            margin-bottom: 20px;
+        }
+        
+        /* Responsive Timeline */
+        @media (max-width: 968px) {
+            .timeline-line {
+                left: 30px;
+                transform: none;
+            }
+            
+            .timeline-item.left,
+            .timeline-item.right {
+                flex-direction: row;
+            }
+            
+            .timeline-dot {
+                left: 30px;
+                transform: translateX(-50%);
+            }
+            
+            .timeline-content {
+                width: calc(100% - 70px);
+                margin-left: 70px !important;
+                margin-right: 0 !important;
+            }
         }
         
         /* Projects Grid */
@@ -576,6 +780,286 @@
                 flex-wrap: wrap;
             }
         }
+        /* Modern Projects Section */
+        .project-item {
+            background: var(--dark-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            margin-bottom: 40px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .project-item:hover {
+            border-color: var(--primary-color);
+            box-shadow: 0 10px 40px rgba(0, 255, 65, 0.15);
+            transform: translateY(-5px);
+        }
+        
+        .project-container {
+            display: grid;
+            grid-template-columns: 400px 1fr;
+            gap: 0;
+            min-height: 280px;
+        }
+        
+        .project-window {
+            background: var(--bg-color);
+            border-right: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .project-window-header {
+            background: linear-gradient(90deg, #333, #222);
+            padding: 8px 12px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+        }
+        
+        .project-window-buttons {
+            display: flex;
+            gap: 6px;
+        }
+        
+        .project-window-title {
+            margin-left: 12px;
+            color: var(--muted-color);
+            font-size: 11px;
+            flex: 1;
+        }
+        
+        .project-image-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: var(--bg-color);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .project-image-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, rgba(0, 255, 65, 0.05), transparent);
+        }
+        
+        .project-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 4px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .project-placeholder {
+            width: 120px;
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: var(--primary-color);
+            opacity: 0.3;
+        }
+        
+        .project-content {
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        .project-header {
+            margin-bottom: 20px;
+        }
+        
+        .project-title-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 15px;
+        }
+        
+        .project-title {
+            color: var(--secondary-color);
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+        
+        .project-status {
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+        }
+        
+        .status-completed {
+            background: rgba(0, 255, 65, 0.15);
+            color: var(--primary-color);
+            border: 1px solid var(--primary-color);
+        }
+        
+        .status-in-progress {
+            background: rgba(255, 189, 46, 0.15);
+            color: #ffbd2e;
+            border: 1px solid #ffbd2e;
+        }
+        
+        .status-planned {
+            background: rgba(0, 128, 255, 0.15);
+            color: var(--secondary-color);
+            border: 1px solid var(--secondary-color);
+        }
+        
+        .project-description {
+            color: var(--text-color);
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+        
+        .project-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            flex: 1;
+        }
+        
+        .tech-tag {
+            background: var(--border-color);
+            color: var(--text-color);
+            padding: 6px 12px;
+            border-radius: 14px;
+            font-size: 0.75rem;
+            transition: all 0.3s ease;
+        }
+        
+        .tech-tag:hover {
+            background: var(--primary-color);
+            color: var(--bg-color);
+        }
+        
+        .project-link {
+            padding: 10px 20px;
+            background: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .project-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--primary-color);
+            transition: left 0.3s ease;
+            z-index: -1;
+        }
+        
+        .project-link:hover::before {
+            left: 0;
+        }
+        
+        .project-link:hover {
+            color: var(--bg-color);
+        }
+        
+        .project-link i {
+            font-size: 1rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 968px) {
+            .project-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .project-window {
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+                min-height: 250px;
+            }
+            
+            .languages-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .glitch {
+                font-size: 2.5rem;
+            }
+            
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav {
+                position: fixed;
+                left: 50%;
+                transform: translateX(-50%);
+                top: 10px;
+                margin: 0;
+                padding: 12px 20px;
+            }
+            
+            .nav.hidden {
+                transform: translateX(-50%) translateY(-100px);
+            }
+            
+            .nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 3px;
+            }
+            
+            .nav a {
+                font-size: 12px;
+                padding: 8px 12px;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .project-title-row {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
         
         /* Scrollbar */
         ::-webkit-scrollbar {
@@ -601,12 +1085,12 @@
     
     <nav class="nav">
         <ul>
-            <li><a href="#home">~/home</a></li>
-            <li><a href="#about">~/about</a></li>
-            <li><a href="#skills">~/skills</a></li>
-            <li><a href="#experience">~/experience</a></li>
-            <li><a href="#projects">~/projects</a></li>
-            <li><a href="#contact">~/contact</a></li>
+            <li><a href="#home">~/Home</a></li>
+            <li><a href="#about">~/About</a></li>
+            <li><a href="#experience">~/Experience</a></li>
+            <li><a href="#skills">~/Skills</a></li>
+            <li><a href="#projects">~/Projects</a></li>
+            <li><a href="#contact">~/Contact</a></li>
         </ul>
     </nav>
 
@@ -618,7 +1102,7 @@
             </div>
             <div class="cta-buttons">
                 <a href="#about" class="btn">./explore_profile.sh</a>
-                <a href="#contact" class="btn secondary">cat contact.txt</a>
+                <a href="#contact" class="btn secondary">cat Contact.txt</a>
             </div>
         </div>
     </section>
@@ -630,11 +1114,11 @@
                 <div class="terminal-button minimize"></div>
                 <div class="terminal-button maximize"></div>
             </div>
-            <div class="terminal-title">ilyasse@cybersec:~$ whoami</div>
+            <div class="terminal-title">Ilyasse@cybersec:~$ whoami</div>
         </div>
 
         <section id="about" class="section">
-            <h2 class="section-title">$ cat profile.md</h2>
+            <h2 class="section-title">$ cat Profile.md</h2>
             <div class="about-grid">
                 <div class="profile-card">
                     <div class="profile-pic">
@@ -650,7 +1134,7 @@
                     </div>
                 </div>
                 <div>
-                    <p>Engineer in Cryptology and Computer Security, passionate about data protection and securing information systems. With solid training in modern cryptography, network and application security, I have acquired extensive experience in analyzing and implementing robust security solutions.</p>
+                    <p>Cybersecurity Analyst with hands-on experience in alert monitoring, incident triage, and suspicious activity investigation. Combining a background in web development with security operations knowledge, I bring a strong understanding of how systems work and how they can be attacked. Passionate about threat detection, incident response, and strengthening organizational security posture.</p>
                     
                     <h3 style="color: var(--secondary-color); margin-top: 30px; margin-bottom: 15px;">Education</h3>
                     <div style="margin-bottom: 15px;">
@@ -661,175 +1145,414 @@
                         <strong style="color: var(--primary-color);">Bachelor's Degree in Computer Engineering (LST)</strong><br>
                         <span style="color: var(--muted-color);">2020 - 2023 | Faculty of Science and Technology, SETTAT - Morocco</span>
                     </div>
-                    <div>
-                        <strong style="color: var(--primary-color);">Baccalaureate in Electrical Science and Technology</strong><br>
-                        <span style="color: var(--muted-color);">2019 - 2020 | Mohammed VI High School, MARRAKECH - Morocco</span>
+                </div>
+            </div>
+        </section>
+
+
+        <section id="experience" class="section">
+            <h2 class="section-title">$ grep -r "Experience" /career/</h2>
+            <p class="experience-subtitle">My journey in tech and security</p>
+            
+            <div class="timeline-container">
+                <div class="timeline-line"></div>
+                
+                <!-- Experience 1 - Left Side -->
+                <div class="timeline-item left">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-header">
+                            <div class="timeline-date-location">
+                                <div class="timeline-date">
+                                    <i class="fa-regular fa-calendar"></i>
+                                    <span>Feb 2025 - Aug 2025</span>
+                                </div>
+                                <div class="timeline-location">
+                                    <i class="fa-solid fa-location-dot"></i>
+                                    <span>Casablanca, Morocco</span>
+                                </div>
+                            </div>
+                            <h3 class="timeline-title">SOC Analyst</h3>
+                            <div class="timeline-company">EURAFRIC INFORMATION</div>
+                        </div>
+                        
+                        <p class="timeline-description">
+                            Monitored and analyzed security alerts in a fast-paced SOC environment, focusing on threat detection, incident triage, and vulnerability management to strengthen organizational security posture.
+                        </p>
+                        
+                        <div class="timeline-responsibilities">
+                            <ul>
+                                <li>Monitored and analyzed 120–180 weekly SIEM alerts, focusing on web exploitation attempts, suspicious HTTP traffic, malware detections, and endpoint anomalies</li>
+                                <li>Performed first-level incident triage, assessed severity levels, and escalated critical threats in accordance with SOC playbooks and response procedures</li>
+                                <li>Investigated phishing campaigns, suspicious IP communications, and abnormal endpoint behavior using log analysis and threat intelligence sources</li>
+                                <li>Conducted vulnerability assessments with Nessus and Nmap, supporting remediation efforts and risk reduction initiatives</li>
+                                <li>Maintained detailed incident documentation and produced daily SOC activity reports to support visibility and compliance requirements</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="timeline-tags">
+                            <span class="timeline-tag">SIEM</span>
+                            <span class="timeline-tag">Incident Response</span>
+                            <span class="timeline-tag">Threat Detection</span>
+                            <span class="timeline-tag">Nessus</span>
+                            <span class="timeline-tag">Nmap</span>
+                            <span class="timeline-tag">Log Analysis</span>
+                            <span class="timeline-tag">Vulnerability Assessment</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Experience 2 - Right Side -->
+                <div class="timeline-item right">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-header">
+                            <div class="timeline-date-location">
+                                <div class="timeline-date">
+                                    <i class="fa-regular fa-calendar"></i>
+                                    <span>Jul 2021 - Sep 2023</span>
+                                </div>
+                                <div class="timeline-location">
+                                    <i class="fa-solid fa-location-dot"></i>
+                                    <span>Marrakesh, Morocco</span>
+                                </div>
+                            </div>
+                            <h3 class="timeline-title">Full Stack Developer</h3>
+                            <div class="timeline-company">STEDA Design</div>
+                        </div>
+                        
+                        <p class="timeline-description">
+                            Designed and developed custom e-commerce platforms for multiple clients, delivering end-to-end solutions with focus on security, scalability, and user experience.
+                        </p>
+                        
+                        <div class="timeline-responsibilities">
+                            <ul>
+                                <li>Developed custom online sales platforms from concept to deployment, managing full project lifecycle for diverse clients</li>
+                                <li>Implemented secure payment gateway integrations with PCI-DSS compliance considerations</li>
+                                <li>Built scalable backend systems using Laravel (PHP) with RESTful API architecture</li>
+                                <li>Designed responsive, user-friendly frontends to enhance customer experience and conversion rates</li>
+                                <li>Managed product catalog systems, inventory management, and order processing workflows</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="timeline-tags">
+                            <span class="timeline-tag">Laravel</span>
+                            <span class="timeline-tag">PHP</span>
+                            <span class="timeline-tag">JavaScript</span>
+                            <span class="timeline-tag">MySQL</span>
+                            <span class="timeline-tag">REST API</span>
+                            <span class="timeline-tag">E-commerce</span>
+                            <span class="timeline-tag">Payment Integration</span>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
         <section id="skills" class="section">
-            <h2 class="section-title">$ ls -la /skills/</h2>
+            <h2 class="section-title">$ ls -la /Skills/</h2>
+            <p class="skills-subtitle">Technologies and tools I work with</p>
+            
             <div class="skills-grid">
                 <div class="skill-category">
-                    <h3>Programming & Development</h3>
-                    <div class="skill-item">
-                        <span>Python</span>
-                        <div class="skill-bar"><div class="skill-progress" style="width: 90%"></div></div>
-                    </div>
-                    <div class="skill-item">
-                        <span>C++</span>
-                        <div class="skill-bar"><div class="skill-progress" style="width: 75%"></div></div>
-                    </div>
-                    <div class="skill-item">
-                        <span>SQL/PL-SQL</span>
-                        <div class="skill-bar"><div class="skill-progress" style="width: 85%"></div></div>
-                    </div>
-                </div>
-                
-                <div class="skill-category">
-                    <h3>Security Tools</h3>
-                    <div class="skill-item">
-                        <span>Nmap</span>
-                        <div class="skill-bar"><div class="skill-progress" style="width: 90%"></div></div>
-                    </div>
-                    <div class="skill-item">
-                        <span>Nessus</span>
-                        <div class="skill-bar"><div class="skill-progress" style="width: 80%"></div></div>
-                    </div>
-                    <div class="skill-item">
-                        <span>OWASP ZAP</span>
-                        <div class="skill-bar"><div class="skill-progress" style="width: 85%"></div></div>
-                    </div>
-                    <div class="skill-item">
-                        <span>Wireshark</span>
-                        <div class="skill-bar"><div class="skill-progress" style="width: 80%"></div></div>
+                    <h3>
+                        <i class="fa-solid fa-shield-halved"></i>
+                        Cybersecurity
+                    </h3>
+                    <div class="skills-badges">
+                        <span class="skill-badge">SIEM Analysis</span>
+                        <span class="skill-badge">Incident Response</span>
+                        <span class="skill-badge">Threat Detection</span>
+                        <span class="skill-badge">Vulnerability Assessment</span>
+                        <span class="skill-badge">Penetration Testing</span>
+                        <span class="skill-badge">Malware Analysis</span>
+                        <span class="skill-badge">Security Auditing</span>
+                        <span class="skill-badge">Forensics</span>
                     </div>
                 </div>
                 
                 <div class="skill-category">
-                    <h3>Cryptography & Security</h3>
-                    <div class="skill-item">
-                        <span>AES Encryption</span>
-                        <div class="skill-bar"><div class="skill-progress" style="width: 90%"></div></div>
-                    </div>
-                    <div class="skill-item">
-                        <span>RSA</span>
-                        <div class="skill-bar"><div class="skill-progress" style="width: 85%"></div></div>
-                    </div>
-                    <div class="skill-item">
-                        <span>JWT/OAuth2</span>
-                        <div class="skill-bar"><div class="skill-progress" style="width: 80%"></div></div>
+                    <h3>
+                        <i class="fa-solid fa-code"></i>
+                        Programming
+                    </h3>
+                    <div class="skills-badges">
+                        <span class="skill-badge">Python</span>
+                        <span class="skill-badge">SQL/PL-SQL</span>
+                        <span class="skill-badge">Bash Scripting</span>
+                        <span class="skill-badge">C++</span>
+                        <span class="skill-badge">JavaScript</span>
+                        <span class="skill-badge">PHP</span>
+                        <span class="skill-badge">Java</span>
                     </div>
                 </div>
                 
                 <div class="skill-category">
-                    <h3>Systems & Platforms</h3>
-                    <div class="skill-item">
-                        <span>Linux</span>
-                        <div class="skill-bar"><div class="skill-progress" style="width: 90%"></div></div>
+                    <h3>
+                        <i class="fa-solid fa-toolbox"></i>
+                        Security Tools
+                    </h3>
+                    <div class="skills-badges">
+                        <span class="skill-badge">Nmap</span>
+                        <span class="skill-badge">Wireshark</span>
+                        <span class="skill-badge">Nessus</span>
+                        <span class="skill-badge">OWASP ZAP</span>
+                        <span class="skill-badge">Metasploit</span>
+                        <span class="skill-badge">Burp Suite</span>
+                        <span class="skill-badge">Splunk</span>
+                        <span class="skill-badge">Snort</span>
                     </div>
-                    <div class="skill-item">
-                        <span>Windows</span>
-                        <div class="skill-bar"><div class="skill-progress" style="width: 75%"></div></div>
+                </div>
+                
+                <div class="skill-category">
+                    <h3>
+                        <i class="fa-solid fa-lock"></i>
+                        Cryptography
+                    </h3>
+                    <div class="skills-badges">
+                        <span class="skill-badge">AES Encryption</span>
+                        <span class="skill-badge">RSA</span>
+                        <span class="skill-badge">PKI</span>
+                        <span class="skill-badge">SSL/TLS</span>
+                        <span class="skill-badge">JWT/OAuth2</span>
+                        <span class="skill-badge">Hashing Algorithms</span>
                     </div>
-                    <div class="skill-item">
-                        <span>VMware/VirtualBox</span>
-                        <div class="skill-bar"><div class="skill-progress" style="width: 85%"></div></div>
+                </div>
+                
+                <div class="skill-category">
+                    <h3>
+                        <i class="fa-solid fa-network-wired"></i>
+                        Networking & Systems
+                    </h3>
+                    <div class="skills-badges">
+                        <span class="skill-badge">Linux Administration</span>
+                        <span class="skill-badge">TCP/IP</span>
+                        <span class="skill-badge">Firewalls</span>
+                        <span class="skill-badge">Windows Server</span>
+                        <span class="skill-badge">VPN</span>
+                        <span class="skill-badge">DNS/DHCP</span>
+                        <span class="skill-badge">IDS/IPS</span>
+                        <span class="skill-badge">Active Directory</span>
+                    </div>
+                </div>
+                
+                <div class="skill-category">
+                    <h3>
+                        <i class="fa-solid fa-cloud"></i>
+                        Cloud & DevOps
+                    </h3>
+                    <div class="skills-badges">
+                        <span class="skill-badge">Docker</span>
+                        <span class="skill-badge">Git/GitHub</span>
+                        <span class="skill-badge">VMware</span>
+                        <span class="skill-badge">VirtualBox</span>
+                        <span class="skill-badge">AWS</span>
+                        <span class="skill-badge">Azure</span>
+                        <span class="skill-badge">CI/CD</span>
+                    </div>
+                </div>
+                
+                <div class="skill-category">
+                    <h3>
+                        <i class="fa-solid fa-book"></i>
+                        Frameworks & Standards
+                    </h3>
+                    <div class="skills-badges">
+                        <span class="skill-badge">OWASP Top 10</span>
+                        <span class="skill-badge">NIST Framework</span>
+                        <span class="skill-badge">ISO 27001</span>
+                        <span class="skill-badge">MITRE ATT&CK</span>
+                        <span class="skill-badge">PCI-DSS</span>
+                        <span class="skill-badge">GDPR</span>
+                    </div>
+                </div>
+                
+                <div class="skill-category">
+                    <h3>
+                        <i class="fa-solid fa-database"></i>
+                        Database & Web
+                    </h3>
+                    <div class="skills-badges">
+                        <span class="skill-badge">MySQL</span>
+                        <span class="skill-badge">PostgreSQL</span>
+                        <span class="skill-badge">MongoDB</span>
+                        <span class="skill-badge">Laravel</span>
+                        <span class="skill-badge">REST API</span>
+                        <span class="skill-badge">GraphQL</span>
+                        <span class="skill-badge">Redis</span>
                     </div>
                 </div>
             </div>
             
-            <h3 style="color: var(--secondary-color); margin-top: 40px; margin-bottom: 20px;">Languages</h3>
-            <div class="languages">
-                <div class="language">
-                    <div class="language-level">100%</div>
-                    <span>Arabic (Native)</span>
-                </div>
-                <div class="language">
-                    <div class="language-level">90%</div>
-                    <span>English (Advanced)</span>
-                </div>
-                <div class="language">
-                    <div class="language-level">85%</div>
-                    <span>French (Advanced)</span>
-                </div>
-            </div>
         </section>
 
-        <section id="experience" class="section">
-            <h2 class="section-title">$ grep -r "experience" /career/</h2>
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-date">Feb 2025 - Aug 2025</div>
-                        <div class="timeline-title">Final Year Internship</div>
-                        <div class="timeline-company">EURAFRIC INFORMATION</div>
-                        <p>Developed a final year project on LLM security, creating an automated penetration testing tool based on OWASP Top 10 for LLMs (2025). Built a RAG assistant for CVEs, integrating local models (LLaMA 3, DeepSeek) and automated report generation (JSON/PDF).</p>
-                        <p><strong>SOC Activities:</strong> Incident investigation using IBM QRadar (SIEM) and TheHive. Penetration testing within an NDR Gatewatcher POC to validate detection and response to alerts.</p>
-                    </div>
-                </div>
-                
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-date">Jul  2024  -  Aug  2024</div>
-                        <div class="timeline-title">Internship</div>
-                        <div class="timeline-company">INTERNCAREER</div>
-                        <p>Identification of potential threats and vulnerabilities. Vulnerability scanning using cybersecurity tools (Nmap, Nessus). Design of realistic cybersecurity incident scenarios (malware attack, phishing attempt).</p>
-                    </div>
-                </div>
-            </div>
-        </section>
+        
 
         <section id="projects" class="section">
             <h2 class="section-title">$ find /projects -name "*.py" -exec cat {} \;</h2>
-            <div class="projects-grid">
-                <div class="project-card">
-                    <div class="project-title">Web Application Security Testing</div>
-                    <p>Conducted security tests using OWASP ZAP on OWASP Juice Shop and developed Python scripts to simulate attacks (SQL Injection, XSS). Analyzed detected vulnerabilities and proposed corrective measures.</p>
-                    <div class="project-tech">
-                        <span class="tech-tag">Python</span>
-                        <span class="tech-tag">OWASP ZAP</span>
-                        <span class="tech-tag">SQL Injection</span>
-                        <span class="tech-tag">XSS</span>
+            
+            <div class="project-item">
+                <div class="project-container">
+                    <div class="project-window">
+                        <div class="project-window-header">
+                            <div class="project-window-buttons">
+                                <div class="terminal-button close"></div>
+                                <div class="terminal-button minimize"></div>
+                                <div class="terminal-button maximize"></div>
+                            </div>
+                            <div class="project-window-title">project_01.sh</div>
+                        </div>
+                        <div class="project-image-container">
+                            <div class="project-placeholder">
+                                <i class="fa-solid fa-shield-halved"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <div class="project-header">
+                            <div class="project-title-row">
+                                <h3 class="project-title">Web Application Security Testing</h3>
+                                <span class="project-status status-completed">Completed</span>
+                            </div>
+                            <p class="project-description">Conducted comprehensive security tests using OWASP ZAP on OWASP Juice Shop and developed Python scripts to simulate common web attacks including SQL Injection and XSS. Analyzed detected vulnerabilities, documented findings with severity ratings, and proposed corrective measures following industry best practices.</p>
+                        </div>
+                        <div class="project-footer">
+                            <div class="project-tech">
+                                <span class="tech-tag">Python</span>
+                                <span class="tech-tag">OWASP ZAP</span>
+                                <span class="tech-tag">SQL Injection</span>
+                                <span class="tech-tag">XSS</span>
+                            </div>
+                            <!-- <a href="https://github.com/yourusername/web-security-testing" class="project-link">
+                                <i class="fa-brands fa-github"></i>
+                                View Code
+                            </a> -->
+                        </div>
                     </div>
                 </div>
-                
-                <div class="project-card">
-                    <div class="project-title">Secure Database Backup System</div>
-                    <p>Automated regular MySQL database backups with AES and GPG encryption. Developed a PyQt-based graphical interface for managing backups and restorations with enhanced security features.</p>
-                    <div class="project-tech">
-                        <span class="tech-tag">Python</span>
-                        <span class="tech-tag">PyQt</span>
-                        <span class="tech-tag">MySQL</span>
-                        <span class="tech-tag">AES</span>
-                        <span class="tech-tag">GPG</span>
+            </div>
+            
+            <div class="project-item">
+                <div class="project-container">
+                    <div class="project-window">
+                        <div class="project-window-header">
+                            <div class="project-window-buttons">
+                                <div class="terminal-button close"></div>
+                                <div class="terminal-button minimize"></div>
+                                <div class="terminal-button maximize"></div>
+                            </div>
+                            <div class="project-window-title">project_02.sh</div>
+                        </div>
+                        <div class="project-image-container">
+                            <div class="project-placeholder">
+                                <i class="fa-solid fa-database"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <div class="project-header">
+                            <div class="project-title-row">
+                                <h3 class="project-title">Secure Database Backup System</h3>
+                                <span class="project-status status-completed">Completed</span>
+                            </div>
+                            <p class="project-description">Automated regular MySQL database backups with military-grade AES and GPG encryption to ensure data confidentiality. Developed a user-friendly PyQt-based graphical interface for managing backups and restorations with enhanced security features including backup verification and integrity checks.</p>
+                        </div>
+                        <div class="project-footer">
+                            <div class="project-tech">
+                                <span class="tech-tag">Python</span>
+                                <span class="tech-tag">PyQt</span>
+                                <span class="tech-tag">MySQL</span>
+                                <span class="tech-tag">AES</span>
+                                <span class="tech-tag">GPG</span>
+                            </div>
+                            <a href="https://github.com/yourusername/secure-backup-system" class="project-link">
+                                <i class="fa-brands fa-github"></i>
+                                View Code
+                            </a>
+                        </div>
                     </div>
                 </div>
-                
-                <div class="project-card">
-                    <div class="project-title">Network Supervision with Nagios</div>
-                    <p>Used Nagios to monitor and supervise network infrastructure. Configured performance, availability, and health monitoring for network devices and services with real-time alerting.</p>
-                    <div class="project-tech">
-                        <span class="tech-tag">Nagios</span>
-                        <span class="tech-tag">Network Monitoring</span>
-                        <span class="tech-tag">Linux</span>
-                        <span class="tech-tag">SNMP</span>
+            </div>
+            
+            <div class="project-item">
+                <div class="project-container">
+                    <div class="project-window">
+                        <div class="project-window-header">
+                            <div class="project-window-buttons">
+                                <div class="terminal-button close"></div>
+                                <div class="terminal-button minimize"></div>
+                                <div class="terminal-button maximize"></div>
+                            </div>
+                            <div class="project-window-title">project_03.sh</div>
+                        </div>
+                        <div class="project-image-container">
+                            <div class="project-placeholder">
+                                <i class="fa-solid fa-network-wired"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <div class="project-header">
+                            <div class="project-title-row">
+                                <h3 class="project-title">Network Supervision with Nagios</h3>
+                                <span class="project-status status-completed">Completed</span>
+                            </div>
+                            <p class="project-description">Implemented comprehensive network monitoring infrastructure using Nagios to supervise critical network devices and services. Configured performance metrics, availability monitoring, and health checks with real-time alerting capabilities. Developed custom plugins for specialized monitoring requirements and integrated with SNMP for enhanced visibility.</p>
+                        </div>
+                        <div class="project-footer">
+                            <div class="project-tech">
+                                <span class="tech-tag">Nagios</span>
+                                <span class="tech-tag">Network Monitoring</span>
+                                <span class="tech-tag">Linux</span>
+                                <span class="tech-tag">SNMP</span>
+                            </div>
+                            <a href="#" class="project-link" style="opacity: 0.5; cursor: not-allowed; pointer-events: none;">
+                                <i class="fa-brands fa-github"></i>
+                                Private Repository
+                            </a>
+                        </div>
                     </div>
                 </div>
-                
-                <div class="project-card">
-                    <div class="project-title">LLM Security & CVE RAG Assistant</div>
-                    <p>Created an automated penetration testing tool based on OWASP Top 10 for LLMs. Built a RAG assistant for CVEs with local LLaMA 3 and DeepSeek models integration.</p>
-                    <div class="project-tech">
-                        <span class="tech-tag">Python</span>
-                        <span class="tech-tag">LLaMA 3</span>
-                        <span class="tech-tag">RAG</span>
-                        <span class="tech-tag">OWASP</span>
-                        <span class="tech-tag">DeepSeek</span>
+            </div>
+            
+            <div class="project-item">
+                <div class="project-container">
+                    <div class="project-window">
+                        <div class="project-window-header">
+                            <div class="project-window-buttons">
+                                <div class="terminal-button close"></div>
+                                <div class="terminal-button minimize"></div>
+                                <div class="terminal-button maximize"></div>
+                            </div>
+                            <div class="project-window-title">project_04.sh</div>
+                        </div>
+                        <div class="project-image-container">
+                            <div class="project-placeholder">
+                                <i class="fa-solid fa-brain"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <div class="project-header">
+                            <div class="project-title-row">
+                                <h3 class="project-title">LLM Security & CVE RAG Assistant</h3>
+                                <span class="project-status status-in-progress">In Progress</span>
+                            </div>
+                            <p class="project-description">Created an innovative automated penetration testing framework based on OWASP Top 10 for LLMs, addressing emerging security concerns in AI systems. Built an intelligent RAG (Retrieval-Augmented Generation) assistant for CVE analysis with local LLaMA 3 and DeepSeek models integration, enabling efficient vulnerability research without reliance on cloud APIs.</p>
+                        </div>
+                        <div class="project-footer">
+                            <div class="project-tech">
+                                <span class="tech-tag">Python</span>
+                                <span class="tech-tag">LLaMA 3</span>
+                                <span class="tech-tag">RAG</span>
+                                <span class="tech-tag">OWASP</span>
+                                <span class="tech-tag">DeepSeek</span>
+                            </div>
+                            <a href="https://github.com/yourusername/llm-security-rag" class="project-link">
+                                <i class="fa-brands fa-github"></i>
+                                View Code
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -900,7 +1623,7 @@
         setInterval(drawMatrix, 35);
 
         // Typing Effect
-        const typeText = "Junior Cybersecurity Specialist | Penetration Tester | SOC Analyst";
+        const typeText = "Junior Cybersecurity Analyst";
         let i = 0;
         const typingElement = document.getElementById('typing-text');
         
@@ -1051,11 +1774,11 @@
         });
 
         console.log(`
-    ╔══════════════════════════════════════╗
+    ╔═══════════════════════════════════════╗
     ║  Welcome to Ilyasse Famfa's Portfolio ║
-    ║  Cybersecurity Specialist            ║
-    ║  System Status: SECURE               ║
-    ╚══════════════════════════════════════╝
+    ║  Cybersecurity Specialist             ║
+    ║  System Status: SECURE                ║
+    ╚═══════════════════════════════════════╝
     
     > Initializing security protocols...
     > Loading encryption modules...
