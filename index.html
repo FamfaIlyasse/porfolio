@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
 
-    <title>ILYASSE FAMFA | Cybersecurity Professional</title>
+    <title>ILYASSE FAMFA | Cybersecurity Specialist</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&display=swap');
         
@@ -668,7 +668,7 @@
             }
         }
         
-        
+        /* Projects Grid */
         .projects-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -835,29 +835,21 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 20px;
-            background: var(--bg-color);
+            padding: 0;
+            background: #0d0d0d;
             position: relative;
             overflow: hidden;
+            min-height: 240px;
         }
-        
-        .project-image-container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(circle at center, rgba(0, 255, 65, 0.05), transparent);
-        }
-        
+
         .project-image {
             width: 100%;
             height: 100%;
-            object-fit: cover;
-            border-radius: 4px;
+            object-fit: contain;
+            border-radius: 0;
             position: relative;
             z-index: 1;
+            display: block;
         }
         
         .project-placeholder {
@@ -1125,11 +1117,11 @@
                         <img src="img.jpeg" alt="Ilyasse Famfa" onerror="this.style.display='none'; this.parentNode.innerHTML='IF';">
                     </div>
                     <h3>Ilyasse Famfa</h3>
-                    <p>Cybersecurity Specialist</p>
+                    <p>Junior Cybersecurity Specialist</p>
                     <div class="contact-info">
-                        <div><i class="fa-solid fa-envelope" style="color: #63E6BE;"></i><a href="mailto:Ilyassefamfa14@gmail.com" target="_blank" rel="noopener noreferrer"> Ilyassefamfa14@gmail.com </a></div>
-                        <div><i class="fa-brands fa-linkedin" style="color: #63E6BE;"></i><a href="https://www.linkedin.com/in/ilyasse-famfa-g25/" target="_blank" rel="noopener noreferrer" > Ilyasse Famfa </a> </div>
-                        <div><i class="fa-solid fa-location-dot" style="color: #63E6BE;"></i> Indianapolis Metropolitan area, IN</div>
+                        <div><i class="fa-solid fa-envelope" style="color: #63E6BE;"></i> Ilyassefamfa14@gmail.com</div>
+                        <div><i class="fa-brands fa-linkedin" style="color: #63E6BE;"></i> Ilyasse Famfa</div>
+                        <div><i class="fa-solid fa-location-dot" style="color: #63E6BE;"></i> Indianapolis</div>
                         <div><i class="fa-solid fa-phone" style="color: #63E6BE;"></i> +1 (463) 314-9433</div>
                     </div>
                 </div>
@@ -1403,9 +1395,7 @@
                             <div class="project-window-title">project_01.sh</div>
                         </div>
                         <div class="project-image-container">
-                            <div class="project-placeholder">
-                                <i class="fa-solid fa-shield-halved"></i>
-                            </div>
+                            <img class="project-image" src="slideshow.gif" alt="Web Application Security Testing">
                         </div>
                     </div>
                     <div class="project-content">
@@ -1444,9 +1434,7 @@
                             <div class="project-window-title">project_02.sh</div>
                         </div>
                         <div class="project-image-container">
-                            <div class="project-placeholder">
-                                <i class="fa-solid fa-database"></i>
-                            </div>
+                            <img class="project-image" src="dbUI.png" alt="Secure Database Backup System">
                         </div>
                     </div>
                     <div class="project-content">
@@ -1486,9 +1474,7 @@
                             <div class="project-window-title">project_03.sh</div>
                         </div>
                         <div class="project-image-container">
-                            <div class="project-placeholder">
-                                <i class="fa-solid fa-network-wired"></i>
-                            </div>
+                            <img class="project-image" src="nagiosXi.png" alt="Network Supervision with Nagios">
                         </div>
                     </div>
                     <div class="project-content">
@@ -1527,9 +1513,7 @@
                             <div class="project-window-title">project_04.sh</div>
                         </div>
                         <div class="project-image-container">
-                            <div class="project-placeholder">
-                                <i class="fa-solid fa-brain"></i>
-                            </div>
+                            <img class="project-image" src="llmpt.png">
                         </div>
                     </div>
                     <div class="project-content">
@@ -1623,7 +1607,7 @@
         setInterval(drawMatrix, 35);
 
         // Typing Effect
-        const typeText = "Cybersecurity Analyst";
+        const typeText = "Junior Cybersecurity Analyst";
         let i = 0;
         const typingElement = document.getElementById('typing-text');
         
@@ -1779,10 +1763,6 @@
     ║  Cybersecurity Specialist             ║
     ║  System Status: SECURE                ║
     ╚═══════════════════════════════════════╝
-    
-    > Initializing security protocols...
-    > Loading encryption modules...
-    > Portfolio ready for exploration!
         `);
     </script>
 </body>
